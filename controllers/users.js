@@ -13,7 +13,7 @@ signToken = user => {
 
 module.exports = {
     root: async(req,res,next)=>{
-        return res.send("Connected to root")
+        return res.status(200).send("Connected to server!")
     },
     signUp: async (req, res, next) => {
         const { email, name, password } = req.value.body;
@@ -33,24 +33,18 @@ module.exports = {
         res.status(200).json({ token });
     },
     signIn: async (req, res, next) => {
-        
         //Generate token
         const token = signToken(req.user);
         res.status(200).json({token});
-
-    },
-    secret: async (req, res, next) => {
-        res.json({secret:"resource"});
-        console.log('UserController.secret() called');
     },
     getAllName: async (req,res,next) => {
-        console.log('Getting all user');
         try{
             const result = await User.find({},{_id: 0, name: 1});
-            res.send(result);
-
+            res.status(200).send(result);
         }catch(error){
             console.log(error.message)
         }
+
+
     }
 }

@@ -15,9 +15,6 @@ router.route('/signup')
 router.route('/signin')
   .post(validateBody(schemas.signInSchema), passport.authenticate('local',{session: false}), UsersController.signIn);
 
-router.route('/secret')
-  .get(passport.authenticate('jwt',{session: false}),UsersController.secret);
-
 router.route('/getallname')
   .get(passport.authenticate('jwt',{session: false}),UsersController.getAllName);
 

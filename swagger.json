@@ -1,0 +1,309 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This documentation is for the API that would be used as the backend for my mobile application. Heres the link to the [GitHub Repo](https://github.com/jasonlim97xp/devops-backend) of this project. To test out the authorization filter, kindly sign up and place the `Token` in the authorization filter ",
+    "version": "1.0.0",
+    "title": "DevOps Application Backend API",
+    "contact": {
+      "name": "Jason",
+      "email": "zhenshen.lim@digi.com.my"
+    }
+  },
+  "host": "ec2-18-219-240-129.us-east-2.compute.amazonaws.com:3000",
+  "basePath": "/users",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Connect to server",
+        "produces": [
+          "text/html"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully connect to server",
+            "schema": {
+              "type": "string",
+              "example": "Connected to server!"
+            }
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "summary": "Sign up new user into the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user information",
+            "description": "User information to sign up",
+            "schema": {
+              "$ref": "#/definitions/SignUpScheme"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucessfully sign up",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/ValidationError"
+          },
+          "403": {
+            "$ref": "#/responses/EmailExist"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    },
+    "/signin": {
+      "post": {
+        "summary": "Logs user into the system",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "user credentials",
+            "description": "User email and password to login",
+            "schema": {
+              "$ref": "#/definitions/SignInScheme"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucessfully login",
+            "schema": {
+              "$ref": "#/definitions/UserToken"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/ValidationError"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    },
+    "/getallname": {
+      "get": {
+        "summary": "Get all user's name",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Token": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SuccessAllName"
+          },
+          "401": {
+            "$ref": "#/responses/UnauthorizedError"
+          },
+          "default": {
+            "$ref": "#/responses/DefaultError"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "responses": {
+    "DefaultError": {
+      "description": "Unexpected error"
+    },
+    "UnauthorizedError": {
+      "description": "User authentication token is missing or invalid",
+      "headers": {
+        "Authorization": {
+          "type": "string",
+          "description": "Invalid or missing token"
+        }
+      },
+      "schema": {
+        "type": "string",
+        "example": "Unauthorized"
+      }
+    },
+    "ValidationError": {
+      "description": "Invalid input due to syntax issue",
+      "schema": {
+        "$ref": "#/definitions/ValidationError"
+      }
+    },
+    "EmailExist": {
+      "description": "Email already exist",
+      "schema": {
+        "$ref": "#/definitions/ErrorMessage"
+      }
+    },
+    "SuccessAllName": {
+      "description": "Successfully get all user's name",
+      "schema": {
+        "$ref": "#/definitions/UsersName"
+      }
+    }
+  },
+  "definitions": {
+    "UserToken": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "SignUpScheme": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "minLength": 6
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "password"
+      ]
+    },
+    "SignInScheme": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "jason@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "minLength": 6,
+          "example": "password"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "UsersName": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ErrorMessage": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "example": "Email exist!"
+        }
+      }
+    },
+    "ValidationError": {
+      "type": "object",
+      "properties": {
+        "isJoi": {
+          "type": "boolean",
+          "example": true
+        },
+        "name": {
+          "type": "string",
+          "example": "Validation Error"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "message": {
+                "type": "string",
+                "example": "email is not allowed to be empty"
+              },
+              "path": {
+                "type": "string",
+                "example": "email"
+              },
+              "type": {
+                "type": "string",
+                "example": "any.empty"
+              },
+              "context": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "example": "email"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "_object": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": ""
+            },
+            "password": {
+              "type": "string",
+              "example": "password"
+            }
+          }
+        }
+      }
+    }
+  }
+}
