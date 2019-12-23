@@ -10,7 +10,7 @@
   <p align="center">
     DevOps Application Backend System
     <br />
-    <a href="https://github.com/github_username/repo"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/jasonlim97xp/devops-backend"><strong>Explore the docs »</strong></a>
   </p>
 </p>
 
