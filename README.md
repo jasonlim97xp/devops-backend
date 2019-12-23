@@ -39,8 +39,8 @@ This is a simple backend system that uses NodeJS alongside Express which would s
 
 ### Built With
 
-* [NodeJS]()
-* [Express]()
+* [NodeJS](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
 * [Mongoose](https://github.com/Automattic/mongoose)
 * [bcryptjs](https://github.com/dcodeIO/bcrypt.js#readme)
 * [joi](https://github.com/hapijs/joi)
