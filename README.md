@@ -111,4 +111,4 @@ _This project would be the backend system that would served as API for the mobil
 Lim Zhen Shen - [Email](zhenshen.lim@digi.com.my)
 
 Project Link: 
-[https://github.com/jasonlim97xp/devops-frontend](https://github.com/jasonlim97xp/devops-frontend) | [https://github.com/jasonlim97xp/devops-backend](https://github.com/jasonlim97xp/devops-backend)
+[https://github.com/jasonlim97xp/devops-backend](https://github.com/jasonlim97xp/devops-backend) |[https://github.com/jasonlim97xp/devops-frontend](https://github.com/jasonlim97xp/devops-frontend)
