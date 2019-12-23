@@ -56,7 +56,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+These are the list of things you need to setup before you can run this project.
 * Node & Npm
 
 Head over to Node.js official website (https://nodejs.org/en/download/) to download and install Node. 
