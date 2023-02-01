@@ -15,7 +15,7 @@
     "express-promise-router": "^2.0.0",
     "joi": "^10.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.1",
+    "mongoose": "^5.13.15",
     "morgan": "^1.9.1",
     "nodemon": "^1.11.0",
     "passport": "^0.4.1",
